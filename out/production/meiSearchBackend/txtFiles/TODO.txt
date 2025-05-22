@@ -1,0 +1,40 @@
+GENERAL:
+    - We often get the "unable to find <layer>" error. This is because the mei doesn't always use the closing
+    tag of '/layer>', but sometimes just '/>'. Build a state machine that tracks open tags and closing tags
+    inside of general parser, and maybe use that for our parsing logic instead.
+
+    - We are currently getting this (non-fatal) error, enclosed in triple quotes below:
+
+"""
+[ec2-user@ip-172-31-16-250 scripts]$ ./indexDatabase
+/home/ec2-user/meiSearchBackend/src/workers/ElasticProcessor.java:17: error: package org.apache.http.impl.nio.reactor does not exist
+import org.apache.http.impl.nio.reactor.IOReactorConfig;
+                                       ^
+/home/ec2-user/meiSearchBackend/src/workers/ElasticProcessor.java:41: error: cannot access IOReactorConfig
+                        .setDefaultIOReactorConfig(IOReactorConfig.custom()
+                        ^
+  class file for org.apache.http.impl.nio.reactor.IOReactorConfig not found
+"""
+
+    we should probably do something about it, but it doesn't seem to be breaking anything. When we open the org.apache.http.impl.nio
+    section of the httpasyncclient-4.1.5.jar, it does not show a 'reactor' subfolder, which is likely part of the issue. Intellij
+    says that the documentation for this and for the .setDefaultIOReactorConfig is from that jar however.
+
+    - So we have work to do concerning actual rests, especially when they comprise the entire measure. And ties.
+
+    - Also the randomly generated xml id's sometimes match your string finds, so you need to double-check those, like in ALL of your parsers
+
+    - Parse a piece of music into timing vectors as well. Our program assumes currently that the tied notes are one note,
+and that no other notes come in between them.
+
+    - Ties are your enemy currently - You need to ensure that accidentals on tied
+notes across measure lines are kept. Each Note perhaps can have a Note object that
+serves as the ending Note that is tied to, or maybe each Note has a Note that is
+the beginning of its tie. Or both notes could have each other as the tie... If you
+don't have a Note in the tied section, you aren't part of a tie!
+
+    - Log how many times and when you are using the defaults when you use your parsedData object
+
+    - Write parsers and classes for layers and staffs, add functionality beyond what you have for that.
+
+    - Extrapolate out the highlighter and more for the queries

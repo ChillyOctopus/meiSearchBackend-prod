@@ -1,0 +1,5 @@
+1. Delete the github repo on github and all contents of meiSearchBackend-prod
+2. Copy everything over to the prod directory
+4. Clean scripts of confidential info
+5. Create github repo and select what you want shared
+    - .idea, meiSearchBackend.iml, Test, Scratch, all txt files except docuemntation and settingUpEc2, metadataInfo
