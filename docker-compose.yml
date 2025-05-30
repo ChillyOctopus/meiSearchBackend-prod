@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: app
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - JAVA_OPTS=-Xms512M -Xmx1G  # Heap size so elastic doesn't eat everything
+      - ELASTICSEARCH_HOST=${E_HOST}
+      - ELASTICSEARCH_PORT=${E_PORT}
+      - ELASTIC_USERNAME=${E_USER}
+      - ELASTIC_PASSWORD=${E_PASS}
+    depends_on:
+      - elasticsearch
+    networks:
+      - app-network
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "5"
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+        reservations:
+          memory: 1g
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.2
+    container_name: elasticsearch
+    ports:
+      - "${PORT2}:${PORT2}"
+      - "${PORT3}:${PORT3}"
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_USERNAME=${E_USER}
+      - ELASTIC_PASSWORD=${E_PASS}
+      - xpack.security.enabled=false
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+        reservations:
+          memory: 1g
+
+  shell:
+    image: ubuntu:noble-20240605
+    container_name: shell
+    stdin_open: true
+    tty: true
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

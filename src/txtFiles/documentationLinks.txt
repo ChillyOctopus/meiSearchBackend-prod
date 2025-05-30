@@ -1,0 +1,13 @@
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query-phrase-prefix.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-minimum-should-match.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-analyzers.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenizers.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html#query-filter-context-ex
+https://www.elastic.co/guide/en/elasticsearch/reference/8.12/query-dsl.html
+https://www.elastic.co/guide/en/elasticsearch/reference/8.13/search-template.html
+https://www.elastic.co/guide/en/elasticsearch/reference/8.13/term-vector.html
