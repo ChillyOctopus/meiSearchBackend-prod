@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: mei-search-backend-app
+    ports:
+      - "PORT:PORT"
+    environment:
+      # Heap size so elastic doesn't eat everything
+      - JAVA_OPTS=-Xms512M -Xmx1G
+      # The elastic vars are used by workers/ElasticProcessor
+      - ELASTIC_HOST=ELASTIC_HOST
+      - ELASTIC_PORT=ELASTIC_PORT
+      - ELASTIC_USER=ELASTIC_USER
+      - ELASTIC_PASS=ELASTIC_PASS
+      # DB vars are needed for workers/Indexer. They are needed on both the instance itself,
+      # for scripts/indexDatabase.sh, and the container for 'getFileByName' in Indexer.
+      - DB_HOST=DB_HOST
+      - DB_PORT=DB_PORT
+      - DB_USER=DB_USER
+      - DB_PASS=DB_PASS
+    depends_on:
+      - elasticsearch
+    networks:
+      - app-network
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "5"
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+        reservations:
+          memory: 1g
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.2
+    container_name: mei-search-backend-elastic
+    ports:
+      - "PORT2:PORT2"
+      - "PORT3:PORT3"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+        reservations:
+          memory: 1g
+
+  shell:
+    image: ubuntu:noble-20240605
+    container_name: mei-search-backend-shell
+    stdin_open: true
+    tty: true
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

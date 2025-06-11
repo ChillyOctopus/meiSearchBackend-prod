@@ -1,0 +1,4 @@
+A) What am I *precisely* trying to do?
+B) What are the *specific* steps to accomplish it?
+C) What do I not know?
+D) How do I find out?

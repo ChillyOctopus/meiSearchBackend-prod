@@ -1,0 +1,16 @@
+1. Rebuild the meiSearchBackend.jar artifact on local before you push to the ec2.
+2. Run src/scripts/clearAndCopyToEc2 on local
+3. Install docker and docker-compose in the ec2. Commands:
+    "sudo yum update -y"
+    "sudo yum install -y docker"
+    "sudo systemctl start docker"
+    "sudo systemctl enable docker"
+4. Add yourself to the docker group in the ec2. Commands:
+    "sudo usermod -aG docker $USER"
+5. Set up your DB_* variables inside the env, as in docker-compose.yml
+    "sudo reboot"
+    Log back in
+6. Run src/scripts/jarAndDockServer.sh inside the ec2
+7. Ensure the music index was created properly. You will see {message: null, success: true}
+8. Run src/scripts/indexDatabase inside the ec2
+9. Make a copy of the ec2 image for backup purposes
